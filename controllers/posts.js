@@ -31,6 +31,50 @@ export const getFeedPosts = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+export const getPostByCategoryandLimit = async (req, res) => {
+  const { category, limit } = req.query;
+
+  try {
+    let query = {};
+
+    if (category) {
+      query.category = category;
+    }
+
+    let postQuery = Post.find(query);
+
+    if (limit) {
+      postQuery = postQuery.limit(parseInt(limit));
+    }
+
+    // Sort the posts by descending order of creation date
+    postQuery = postQuery.sort({ createdAt: -1 });
+
+    const posts = await postQuery.exec();
+
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getFeedPostById = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const otherPosts = await Post.find({ _id: { $ne: postId } }).limit(10);
+
+    res.status(200).json({ post, otherPosts });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 
 export const getUserPosts = async (req, res) => {
   try {
