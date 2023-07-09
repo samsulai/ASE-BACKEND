@@ -41,16 +41,13 @@ export const getPostByCategoryandLimit = async (req, res) => {
       query.category = category;
     }
 
-    let postQuery = Post.find(query);
+    let postQuery = Post.find(query).sort({ createdAt: -1 });
 
     if (limit) {
       postQuery = postQuery.limit(parseInt(limit));
     }
 
-    // Sort the posts by descending order of creation date
-    postQuery = postQuery.sort({ createdAt: -1 });
-
-    const posts = await postQuery.exec();
+    const posts = await postQuery;
 
     res.status(200).json(posts);
   } catch (err) {
