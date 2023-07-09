@@ -58,19 +58,22 @@ export const getPostByCategoryandLimit = async (req, res) => {
 export const getFeedPostById = async (req, res) => {
   try {
     const postId = req.params.id;
-    const post = await Post.findById(postId);
+
+    const [post, otherPosts] = await Promise.all([
+      Post.findById(postId),
+      Post.find({ _id: { $ne: postId } }).limit(10),
+    ]);
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
-
-    const otherPosts = await Post.find({ _id: { $ne: postId } }).limit(10);
 
     res.status(200).json({ post, otherPosts });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 
 export const getUserPosts = async (req, res) => {
