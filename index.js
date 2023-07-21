@@ -11,7 +11,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import postRoutes from "./routes/posts.js";
-
+import Post from "./models/Post.js";
+import { posts } from "./data/index.js";
 /* CONFIGURATIONS */
 dotenv.config();
 const app = express();
@@ -39,5 +40,6 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+     Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));

@@ -6,7 +6,14 @@ const postSchema = mongoose.Schema(
     image: String,
     description: String,
     category: String,
-    slug: String,
+    showImage: {
+    	type : Boolean,
+    	default : true
+    },
+    image1 : {
+    	type : String
+    },
+   
   },
   { timestamps: true }
 );

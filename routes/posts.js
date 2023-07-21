@@ -1,12 +1,18 @@
-import express from "express"
-import {getFeedPosts, getUserPosts, likePost, getFeedPostById, getPostByCategoryandLimit} from "../controllers/posts.js"
-import {verifyToken} from "../middleware/auth.js"
+import express from "express";
+import {
+  getFeedPosts,
+  getUserPosts,
+  getFeedPostById,
+  getPostByCategoryandLimit,
+  getPaginatedPost,
+} from "../controllers/posts.js";
+import { verifyToken } from "../middleware/auth.js";
 
-const router = express.Router()
+const router = express.Router();
 
+router.get("/", getFeedPosts);
+router.get("/feed", getPostByCategoryandLimit);
+router.get("/news", getPaginatedPost);
+router.get("/:id", getFeedPostById);
 
-router.get("/", getFeedPosts)
-router.get("/feed",getPostByCategoryandLimit)
-router.get("/:id", getFeedPostById)
-
-export default router
+export default router;
