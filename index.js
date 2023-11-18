@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), "public/assets")));
 
-app.use(timeout('30s')); 
+app.use(timeout('60s')); 
 
 /* ROUTES */
 app.use("/posts", postRoutes);
