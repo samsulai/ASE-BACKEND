@@ -1,7 +1,7 @@
 export const posts = [
   {
-    title: "ASE Benin, U.S. Department of State Bureau of International Narcotics and Law Enforcement Affairs (INL) and University of Maryland hold conference on Enhanced Security.",
-    image: "inl.jpg",
+    title: "Professor Leonard Wantchekon's lecture at the Sir Arthur Lewis Memorial Lecture",
+    image: "mem2.webp",
     description: "hello there",
     
 category: "News"
